@@ -15,10 +15,10 @@ const AboutMe = () => {
   return (
     <main className='section container'>
       <section className='about'>
-        <h2 className='section__title'>
+        <h2 className='section__subtitle subtitle__center'>
           About <span>Me</span>
         </h2>
-        <div className='about__containerr grid'>
+        <div className='resume__container grid'>
           <div className='about__info'>
             <h3 className='section__subtitlee'>Personal Infos</h3>
 
@@ -92,7 +92,8 @@ const AboutMe = () => {
 
       <div className='separator'></div>
 
-      <section className=''>
+      <section className='contact section' id='contact'>
+
        
           <Contact />
         
