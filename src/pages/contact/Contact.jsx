@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 import {
   FaEnvelopeOpen,
@@ -8,11 +9,31 @@ import {
 } from 'react-icons/fa';
 import { SiGmail} from 'react-icons/si'
 
-// import { FiSend } from 'react-icons/fi';
+import { FiSend } from 'react-icons/fi';
 
 import './contact.css';
 
 const Contact = () => {
+  const form = useRef();
+  const [isMessageSent, setIsMessageSent] = useState(false);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_9c6dodu', 'template_0sjngv9', form.current, {
+        publicKey: 'b75ksJO67dOsm82rr',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+          setIsMessageSent(true); // Set state to indicate successful message sent
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
+  };
   return (
     <section className='contact section'>
       <h2 className='section__title'>
@@ -68,11 +89,12 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* <form className='contact__form'>
+        <form className='contact__form' ref={form} onSubmit={sendEmail}>
           <div className='form__input-group'>
             <div className='form__input-div'>
               <input
                 type='text'
+                name="user_name"
                 placeholder='Your Name'
                 className='form__control'
               />
@@ -81,6 +103,7 @@ const Contact = () => {
             <div className='form__input-div'>
               <input
                 type='email'
+                name="user_email"
                 placeholder='Your Email'
                 className='form__control'
               />
@@ -97,18 +120,22 @@ const Contact = () => {
 
           <div className='form__input-div'>
             <textarea
+              name="message"
               placeholder='Your Message'
               className='form__control textarea'
             ></textarea>
           </div>
 
-          <button className='button'>
+          <button className='button' type='submit' value="Send">
             Send Message
             <span className='button__icon contact__button-icon'>
               <FiSend />
             </span>
           </button>
-        </form> */}
+        </form>
+        {isMessageSent && (
+          <div className="message-sent">Message sent successfully!</div>
+        )}
       </div>
     </section>
   );

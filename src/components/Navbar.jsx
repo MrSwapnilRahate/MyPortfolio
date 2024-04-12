@@ -6,9 +6,6 @@ import './navbar.css';
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-  
-    
-
   return (
     
     <nav className='nav'>
